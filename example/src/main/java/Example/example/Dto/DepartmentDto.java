@@ -6,7 +6,8 @@ public class DepartmentDto {
     private String name;
     private String location;
 
-    public DepartmentDto() {
+    public DepartmentDto(String name) {
+        this.name = name;
     }
 
     public DepartmentDto(Long id, String name, String location) {
@@ -14,6 +15,7 @@ public class DepartmentDto {
         this.name = name;
         this.location = location;
     }
+
 
     public Long getId() {
         return id;

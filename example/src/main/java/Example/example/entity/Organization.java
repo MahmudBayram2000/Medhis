@@ -8,15 +8,18 @@ import java.util.List;
 public class Organization {
 
     @Entity
-    public static class Employee{
+    public static class Employee {
 
         @Id
         @GeneratedValue(strategy = GenerationType.AUTO)
         private Long id;
 
+
         private String firstName;
 
+
         private String lastName;
+
 
         @ManyToOne
         @JoinColumn(name = "department_id")
@@ -71,7 +74,9 @@ public class Organization {
         @GeneratedValue(strategy = GenerationType.AUTO)
         private Long id;
 
+        @Column(name = "name")
         private String name;
+        @Column(name = "location")
         private String location;
 
         @OneToMany(mappedBy = "department", fetch = FetchType.LAZY)
@@ -81,6 +86,7 @@ public class Organization {
         public Department() {
 
         }
+
         public Department(String name, String location) {
             this.name = name;
             this.location = location;

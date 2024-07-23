@@ -22,8 +22,10 @@ public class DepartmentController {
 
     @GetMapping
     public ResponseEntity<List<DepartmentDto>> getAllDepartments() {
-        return ResponseEntity.ok(departmentService.getAllDepartments());
+        List<DepartmentDto> departments = departmentService.getAllDepartments();
+        return ResponseEntity.ok(departments);
     }
+
 
     @PostMapping("/create")
     public ResponseEntity<DepartmentDto> createDepartment(@RequestBody DepartmentDto departmentDto) {
@@ -43,12 +45,42 @@ public class DepartmentController {
         return ResponseEntity.ok(departmentService.findById(id));
     }
 
-    @GetMapping("/search")
+    @GetMapping("/searchByName")
+    public ResponseEntity<List<DepartmentDto>> findByName(
+            @RequestParam(required = false) String name) {
+        logger.info("Received request to search departments with name: {}", name);
+        List<DepartmentDto> departments = departmentService.findByName(name);
+        logger.info("Found departments: {}", departments);
+        return ResponseEntity.ok(departments);
+    }
+
+    @GetMapping("/searchByLocation")
+    public ResponseEntity<List<DepartmentDto>> findByLocation(
+            @RequestParam(required = false) String location) {
+        logger.info("Received request to search departments with location: {}", location);
+        List<DepartmentDto> departments = departmentService.findByLocation(location);
+        logger.info("Found departments: {}", departments);
+        return ResponseEntity.ok(departments);
+    }
+
+    @GetMapping("/searchByNameAndLocation")
     public ResponseEntity<List<DepartmentDto>> findByNameAndLocation(
             @RequestParam(required = false) String name,
             @RequestParam(required = false) String location) {
+        logger.info("Received request to search departments with name: {} and location: {}", name, location);
         List<DepartmentDto> departments = departmentService.findByNameAndLocation(name, location);
+        logger.info("Found departments: {}", departments);
         return ResponseEntity.ok(departments);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteDepartment(@PathVariable Long id) {
+        try {
+            departmentService.deleteDepartment(id);
+            return ResponseEntity.noContent().build();
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(null);
+        }
     }
 }
 

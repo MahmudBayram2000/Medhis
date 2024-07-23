@@ -1,5 +1,7 @@
 package Example.example.Dto;
 
+import Example.example.entity.Organization;
+
 public class EmployeeDto {
 
     private Long id;
@@ -15,6 +17,14 @@ public class EmployeeDto {
         this.firstName = firstName;
         this.lastName = lastName;
         this.departmentId = departmentId;
+    }
+
+    public EmployeeDto(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public EmployeeDto(Organization.Employee updatedEmployee) {
+
     }
 
     public Long getId() {

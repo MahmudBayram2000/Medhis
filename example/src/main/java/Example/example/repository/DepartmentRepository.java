@@ -9,6 +9,10 @@ import java.util.List;
 @Repository
 public interface DepartmentRepository extends JpaRepository<Organization.Department, Long> {
     List<Organization.Department> findByName(String name);
+
     List<Organization.Department> findByLocation(String location);
+
     List<Organization.Department> findByNameAndLocation(String name, String location);
+
+    void deleteById(Long id);
 }
